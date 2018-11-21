@@ -2,7 +2,7 @@
 using namespace std;
 
 #ifdef LOCAL
-#define clog(x) cerr << #x << " = " << x << endl
+#define clog(x) cerr << "[" << __LINE__ << "]: " << #x << " = " << x << endl
 #else
 #define clog(x) 42
 #endif
