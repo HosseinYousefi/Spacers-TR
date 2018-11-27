@@ -10,9 +10,18 @@ using namespace std;
 #define endl '\n'
 using ll = long long;
 
+const int SIGMA = 26;
+
+// char ⟼ [0, SIGMA)
+int ctoi(char c) {
+    int res = (c - 'a');
+    assert(0 <= res && res < SIGMA);
+    return res;
+}
+
 struct Eertree {
     struct Node {
-        int nxt[26], link, len, cnt;
+        int nxt[SIGMA], link, len, cnt;
         Node(int _link, int _len) : link(_link), len(_len), cnt(0) {
             memset(nxt, 0, sizeof(nxt));
         }
@@ -35,14 +44,15 @@ struct Eertree {
         return v;
     }
     
-    int addLetter(int c) {
-        s.push_back(c);
+    int addLetter(char c) {
+        int i = ctoi(c);
+        s.push_back(i);
         p = update(p);
-        if (t[p].nxt[c] == 0) {
-            t.emplace_back(t[update(t[p].link)].nxt[c], t[p].len + 2);
-            t[p].nxt[c] = t.size() - 1;
+        if (t[p].nxt[i] == 0) {
+            t.emplace_back(t[update(t[p].link)].nxt[i], t[p].len + 2);
+            t[p].nxt[i] = t.size() - 1;
         }
-        p = t[p].nxt[c];
+        p = t[p].nxt[i];
         return (t[p].cnt = t[t[p].link].cnt + 1);
     }
 };
@@ -56,6 +66,6 @@ int main() {
     ll ans = 0;
     Eertree t;
     for (auto c : s)
-        ans += t.addLetter(c - 'a');
+        ans += t.addLetter(c);
     cout << ans << endl;
 }

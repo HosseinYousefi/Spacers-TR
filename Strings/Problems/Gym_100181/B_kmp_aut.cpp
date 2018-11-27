@@ -22,13 +22,22 @@ vector<int> piFunc(const string &s) {
     return pi;
 }
 
+const int SIGMA = 26;
+
+// char ⟼ [0, SIGMA)
+int ctoi(char c) {
+    int res = (c - 'a');
+    assert(0 <= res && res < SIGMA);
+    return res;
+}
+
 vector<vector<int>> kmpAut(const string &s) {
     int n = s.size();
     auto pi = piFunc(s);
-    vector<vector<int>> aut(n + 1, vector<int>(26));
+    vector<vector<int>> aut(n + 1, vector<int>(SIGMA));
     for (int i = 0; i <= n; i++)
-        for (int j = 0; j < 26; j++) {
-            if ('a' + j == s[i])
+        for (int j = 0; j < SIGMA; j++) {
+            if (i < n && ctoi(s[i]) == j)
                 aut[i][j] = i + 1;
             else if (i > 0)
                 aut[i][j] = aut[pi[i - 1]][j];
@@ -41,7 +50,7 @@ vector<int> kmp(const string &s, const string &p) {
     auto aut = kmpAut(p);
     vector<int> res;
     for (int i = 0, j = 0; i < n; i++) {
-        j = aut[j][s[i] - 'a'];
+        j = aut[j][ctoi(s[i])];
         if (j == m)
             res.push_back(i - m + 1);
     }

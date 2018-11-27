@@ -1,6 +1,6 @@
-constexpr int SIGMA = 26;
+const int SIGMA = 26;
 
-// char -> [0, SIGMA)
+// char ⟼ [0, SIGMA)
 int ctoi(char c) {
     int res = (c - 'a');
     assert(0 <= res && res < SIGMA);
@@ -47,9 +47,9 @@ struct AhoCorasick {
                 int &w = t[v].go[i];
                 int &x = t[w].link;
                 int &y = t[w].tlink;
-                if (w == 0) {
+                if (w == 0)
                     w = t[u].go[i];
-                } else {
+                else {
                     x = (v ? t[u].go[i] : 0);
                     y = (t[x].id == -1 ? t[x].tlink : x);
                     q.push(w);

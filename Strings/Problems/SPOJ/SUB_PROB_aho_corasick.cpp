@@ -9,9 +9,9 @@ using namespace std;
 #define endl '\n'
 using ll = long long;
 
-constexpr int SIGMA = 52;
+const int SIGMA = 52;
 
-// char -> [0, SIGMA)
+// char ⟼ [0, SIGMA)
 int ctoi(char c) {
     int res = islower(c) ? (c - 'a') : 26 + (c - 'A');
     assert(0 <= res && res < SIGMA);
